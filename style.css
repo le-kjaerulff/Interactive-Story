@@ -1,0 +1,37 @@
+* {
+  background-color: black;
+}
+
+h1 {
+  color: antiquewhite;
+}
+
+.chapterText {
+  overflow: auto;
+  font-size: 1.25em;
+}
+
+.description {
+  background-image: url("papertex.jpg");
+  padding: 25px;
+}
+
+.new {
+  color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-align: left;
+}
+
+.seen {
+  color: rgba(0, 0, 0, 0.55);
+  background-color: rgba(0, 0, 0, 0);
+  text-align: left;
+}
+
+.choice {
+  color: aliceblue;
+}
+
+form {
+  text-align: right;
+}
