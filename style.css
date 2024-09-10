@@ -1,7 +1,39 @@
-* {
-  background-color: black;
+#app {
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
 }
 
+#box1 {
+  height: 100vh;
+  width: 10vw;
+  background-color: rgb(75, 75, 75);
+}
+#box2 {
+  height: 100vh;
+  width: 80vw;
+}
+
+#box21 {
+  height: 80%;
+  width: 100%;
+  background-color: aqua;
+}
+
+#box22 {
+  height: 50%;
+  width: 100%;
+  background-color: blueviolet;
+}
+
+#box3 {
+  height: 100vh;
+  width: 10vw;
+  background-color: rgb(75, 75, 75);
+}
+
+/*
 h1 {
   color: antiquewhite;
 }
@@ -35,3 +67,4 @@ h1 {
 form {
   text-align: right;
 }
+*/

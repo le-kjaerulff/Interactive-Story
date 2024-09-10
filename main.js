@@ -850,24 +850,26 @@ let allText = [
   ],
 ];
 
+/*
 //html stuff
-const body = document.body; //mah body
+//const body = document.body; //mah body
+const app = document.getElementById("app");
 
 let descriptionParagraphs = [];
 let choiceLabels = [];
 let choiceInputs = [];
 
-const chapterTitle = document.createElement("h1");
-const divChapterText = document.createElement("div");
+const chapterTitle = app.createElement("h1");
+const divChapterText = app.createElement("div");
 divChapterText.setAttribute("id", "chapterText");
 
-const formChoices = document.createElement("form");
+const formChoices = app.createElement("form");
 formChoices.setAttribute("action", "/choose-an-action");
 formChoices.setAttribute("id", "choicesText");
 
 //body.append(chapterNames[playerPosition]);
-body.append(chapterTitle);
-body.append(divChapterText);
+app.append(chapterTitle);
+app.append(divChapterText);
 
 chapterTitle.innerText = chapterNames[playerPosition];
 
@@ -876,6 +878,7 @@ createDescriptionParagraphs(textToShow[0].length);
 
 divChapterText.append(formChoices);
 createChoiceInputs(textToShow[1].length);
+*/
 
 //Gameloop
 /*
