@@ -1,15 +1,18 @@
 import "./style.css";
 
-//var properLoadingProcedure; // bliver true hvis hvis ballLoaded er false når spilleren lader kanonen med krudt
-// bliver false hvis gunpowderLoaded er false når spilleren lader kanonen med kuglen
-
 //Spilerens nuværende position. Tallet svarer til kapitlets nummer.
-let playerPosition = 4;
+let playerPosition = 5;
 
 let latestPlayerAnswer;
 
 //Gemmer de valg som spilleren har truffet som en liste.
 let choicesLog = [];
+
+//HTML refferencer
+const choicesParent = document.getElementById("box22");
+const descriptionsParent = document.getElementById("box2121");
+const chapterTitle = document.getElementById("chapterTitle");
+console.log(choicesParent);
 
 //array som indeholder to arrays til den tekst som skal vises til spilleren.
 //Det første array er til descriptions, det andet er til choices.
@@ -18,7 +21,7 @@ let choicesLog = [];
 let textToShow = [[], []];
 
 //Array som holder styr på hvilke tekster spilleren har set, ved at gemme teksternes id-tags
-let textSeenByPlayer = ["4.0.0"];
+let textSeenByPlayer = [];
 
 const chapterNames = [
   "Among friends", // chapter 0
@@ -880,31 +883,43 @@ divChapterText.append(formChoices);
 createChoiceInputs(textToShow[1].length);
 */
 
+//css stuff
+compileTextToShow(playerPosition);
+console.log(textToShow[1]);
+
+let buttonOverColor = "#FFFF00";
+let buttonOutColor = "#000000";
+let buttonTextOverColor = "#000000";
+let buttonTextOutColor = "#FFFFFF";
+
+showChoices();
+showDescriptions(playerPosition);
+
 //Gameloop
 /*
 while (true) {
   console.log(`Choices made so far ${choicesLog}`);
-
+  
   compileTextToShow(playerPosition);
   body.append(chapterNames[playerPosition]);
   createDescriptionParagraphs(textToShow[0].length);
   //latestPlayerAnswer = prompt(generatePrompt());
-
+  
   addPlayerChoiceToLog(latestPlayerAnswer);
-
+  
   updateShowStates(latestPlayerAnswer);
-
+  
   updateTextSeen();
   if (
     (choicesLog.length > 5 && choicesLog.includes("6.1.0") === false) ||
     (choicesLog.length > 5 && choicesLog.includes("6.1.1") === false)
-  ) {
-    playerPosition = 12;
-  } else {
-    playerPosition = getDestinationFromPlayerAnswer(latestPlayerAnswer);
-  }
-}
-*/
+    ) {
+      playerPosition = 12;
+      } else {
+        playerPosition = getDestinationFromPlayerAnswer(latestPlayerAnswer);
+    }
+    }
+    */
 function compileTextToShow(chapterNr) {
   // rydder begge arrays inde i textToShow-arrayet.
   for (let i = 0; i < textToShow.length; i++) {
@@ -1019,6 +1034,7 @@ function createDescriptionParagraphs(numberOfParagraphs) {
   }
 }
 
+/*
 function createChoiceInputs(numberOfChoices) {
   for (let i = 0; i < numberOfChoices; i++) {
     choiceLabels.push(document.createElement("label"));
@@ -1039,4 +1055,74 @@ function createChoiceInputs(numberOfChoices) {
   button.setAttribute("type", "submit");
   button.innerText = "Submit";
   formChoices.append(button);
+}
+*/
+
+function showDescriptions(chapterNr) {
+  chapterTitle.innerText = chapterNames[playerPosition];
+
+  while (descriptionsParent.firstChild) {
+    descriptionsParent.firstChild.remove();
+  }
+
+  textToShow[0].forEach((obj) => {
+    const newParagraph = document.createElement("p");
+    if (textSeenByPlayer.includes(obj.id) === false) {
+      newParagraph.setAttribute("class", "description new");
+    } else {
+      newParagraph.setAttribute("class", "description seen");
+    }
+    newParagraph.innerText = obj.text;
+    descriptionsParent.append(newParagraph);
+  });
+}
+
+function showChoices() {
+  while (choicesParent.firstChild) {
+    choicesParent.firstChild.remove();
+  }
+
+  textToShow[1].forEach((obj) => {
+    //knapper
+    const newButton = document.createElement("div");
+    newButton.setAttribute("class", "box button");
+    newButton.style.width = Math.floor(100 / textToShow[1].length) + "%";
+    newButton.style.display = "flex";
+    newButton.style.alignItems = "center";
+    newButton.style.justifyContent = "center";
+
+    //knapper text
+    const newButtonText = document.createElement("p");
+    newButtonText.setAttribute("class", "buttonText");
+    newButtonText.innerText = obj.text;
+
+    //events
+    newButton.addEventListener("mouseover", function (event) {
+      newButton.style.backgroundColor = buttonOverColor;
+      newButtonText.style.color = buttonTextOverColor;
+    });
+
+    newButton.addEventListener("mouseout", function (event) {
+      newButton.style.backgroundColor = buttonOutColor;
+      newButtonText.style.color = buttonTextOutColor;
+    });
+
+    newButton.addEventListener("click", function (event) {
+      choiceMade(obj);
+    });
+
+    //append
+    choicesParent.append(newButton);
+    newButton.append(newButtonText);
+  });
+}
+
+function choiceMade(playerChoice) {
+  playerPosition = playerChoice.destination;
+  if (playerChoice.effectsOfChoice !== undefined) {
+    playerChoice.effectsOfChoice();
+  }
+  compileTextToShow(playerPosition);
+  showDescriptions();
+  showChoices();
 }
