@@ -1,7 +1,7 @@
 import "./style.css";
 
 //Spilerens nuværende position. Tallet svarer til kapitlets nummer.
-let playerPosition = 5;
+let playerPosition = 0;
 
 let latestPlayerAnswer;
 
@@ -24,7 +24,7 @@ let textToShow = [[], []];
 let textSeenByPlayer = [];
 
 const chapterNames = [
-  "Among friends", // chapter 0
+  "Life is good", // chapter 0
   "Waking up in a nightmare", // chapter 1
   "The main deck", // chapter 2
   "The cargo deck", // chapter 3
@@ -272,23 +272,23 @@ let allText = [
         show: true,
         destination: 3,
         effectsOfChoice: function () {
-          allText[3][0][1].show = false;
-          allText[3][0][2].show = true;
+          allText[3][0][1 - 1].show = false;
+          allText[3][0][2 - 1].show = true;
           if (choicesLog.includes("6.1.0") === true) {
-            allText[4][0][5].show = false;
-            allText[4][0][6].show = true;
+            allText[4][0][5 - 1].show = false;
+            allText[4][0][6 - 1].show = true;
           }
           if (
             choicesLog.includes("6.1.0") === true &&
             choicesLog.includes("5.1.4") === true
           ) {
-            allText[4][0][5].show = false;
-            allText[4][0][6].show = false;
-            allText[4][0][7].show = true;
+            allText[4][0][5 - 1].show = false;
+            allText[4][0][6 - 1].show = false;
+            allText[4][0][7 - 1].show = true;
           }
 
-          allText[3][1][4].show = false;
-          allText[3][1][5].show = true;
+          allText[3][1][4 - 1].show = false;
+          allText[3][1][5 - 1].show = true;
         },
         seenByPLayer: false,
       },
@@ -560,9 +560,9 @@ let allText = [
         show: true,
         destination: 9,
         effectsOfChoice: function () {
-          allText[2][0][4].show = true;
+          allText[2][0][4 - 1].show = true;
 
-          allText[2][1][4].show = true;
+          allText[2][1][4 - 1].show = true;
         },
         seenByPLayer: false,
       },
@@ -581,9 +581,9 @@ let allText = [
             choicesLog.includes("6.1.0") === true &&
             choicesLog.includes("5.1.4") === true
           ) {
-            allText[4][0][5].show = false;
-            allText[4][0][6].show = false;
-            allText[4][0][7].show = true;
+            allText[4][0][5 - 1].show = false;
+            allText[4][0][6 - 1].show = false;
+            allText[4][0][7 - 1].show = true;
           }
 
           allText[5][1][5].show = false;
@@ -614,23 +614,23 @@ let allText = [
         show: true,
         destination: 2,
         effectsOfChoice: function () {
-          allText[2][0][2].show = false;
-          allText[2][0][4].show = true;
-          allText[4][0][3].show = false;
-          allText[4][0][5].show = true;
+          allText[2][0][2 - 1].show = false;
+          allText[2][0][4 - 1].show = true;
+          allText[4][0][3 - 1].show = false;
+          allText[4][0][5 - 1].show = true;
           if (choicesLog.includes("3.1.3") === true) {
-            allText[4][0][6].show = true;
-            allText[4][0][5].show = false;
+            allText[4][0][6 - 1].show = true;
+            allText[4][0][5 - 1].show = false;
           }
           if (
             choicesLog.includes("3.1.3") === true &&
             choicesLog.includes("5.1.4") === true
           ) {
-            allText[4][0][7].show = true;
-            allText[4][0][5].show = false;
-            allText[4][0][6].show = false;
+            allText[4][0][7 - 1].show = true;
+            allText[4][0][5 - 1].show = false;
+            allText[4][0][6 - 1].show = false;
           }
-          allText[2][1][4].show = false;
+          allText[2][1][4 - 1].show = false;
         },
         seenByPLayer: false,
       },
@@ -641,10 +641,10 @@ let allText = [
         show: true,
         destination: 2,
         effectsOfChoice: function () {
-          allText[2][0][2].show = false;
-          allText[2][0][3].show = true;
-          allText[4][0][4].show = true;
-          allText[2][1][4].show = false;
+          allText[2][0][2 - 1].show = false;
+          allText[2][0][3 - 1].show = true;
+          allText[4][0][4 - 1].show = true;
+          allText[2][1][4 - 1].show = false;
         },
         seenByPLayer: false,
       },
@@ -926,7 +926,7 @@ function compileTextToShow(chapterNr) {
     let lengthBeforePopping = textToShow[i].length;
     for (let j = 0; j < lengthBeforePopping; j++) {
       textToShow[i].pop();
-      console.log("popped 1 element");
+      //console.log("popped 1 element");
     }
   }
 
@@ -1074,6 +1074,7 @@ function showDescriptions(chapterNr) {
     }
     newParagraph.innerText = obj.text;
     descriptionsParent.append(newParagraph);
+    textSeenByPlayer.push(obj.id);
   });
 }
 
@@ -1118,10 +1119,15 @@ function showChoices() {
 }
 
 function choiceMade(playerChoice) {
-  playerPosition = playerChoice.destination;
+  choicesLog.push(playerChoice.id);
+  console.log(playerChoice.id);
+
   if (playerChoice.effectsOfChoice !== undefined) {
     playerChoice.effectsOfChoice();
   }
+
+  playerPosition = playerChoice.destination;
+
   compileTextToShow(playerPosition);
   showDescriptions();
   showChoices();
