@@ -3,18 +3,22 @@ import "./style.css";
 //Spilerens nuværende position. Tallet svarer til kapitlets nummer.
 let playerPosition = 0;
 
-let latestPlayerAnswer;
+let playerInventory = [];
 
 //Gemmer de valg som spilleren har truffet som en liste.
 let choicesLog = [];
 
 //HTML refferencer
-const choicesParent = document.getElementById("box22");
-const descriptionsParent = document.getElementById("box2121");
-const chapterTitle = document.getElementById("chapterTitle");
-const chapterImageParent = document.getElementById("box211");
+const choicesParentEl = document.getElementById("box22");
+const descriptionsParentEl = document.getElementById("box2121");
+const chapterTitleEl = document.getElementById("chapterTitle");
+const chapterImageParentEl = document.getElementById("box211");
+const inventoryEl = document.getElementById("inventory");
 
-console.log(choicesParent);
+const buttonOverColor = "#DDDDDD";
+const buttonOutColor = "#000000";
+const buttonTextOverColor = "#000000";
+const buttonTextOutColor = "#FFFFFF";
 
 //array som indeholder to arrays til den tekst som skal vises til spilleren.
 //Det første array er til descriptions, det andet er til choices.
@@ -56,7 +60,6 @@ const chapterImagePaths = [
   "images/chapter11.jpg",
   "images/chapter12.jpg",
 ];
-
 const borderImagePaths = ["images/left border.png", "images/right border.png"];
 
 let allText = [
@@ -81,7 +84,9 @@ let allText = [
         initShowState: true,
         show: true,
         destination: 1,
-        effectsOfChoice: undefined,
+        effectsOfChoice: function () {
+          clearChoicesLog();
+        },
         seenByPLayer: false,
       },
     ],
@@ -328,10 +333,13 @@ let allText = [
         show: true,
         destination: 3,
         effectsOfChoice: function () {
+          allText[3][0][3 - 1].show = false;
           allText[4][0][3 - 1].show = false;
 
           allText[3][1][6 - 1].show = false;
           allText[4][1][4 - 1].show = true;
+
+          playerInventory.push("A bag of gunpowder");
         },
         seenByPLayer: false,
       },
@@ -464,6 +472,8 @@ let allText = [
             allText[4][1][6 - 1].show = true;
           }
           allText[4][1][4 - 1].show = false;
+
+          removeItemFromInventory("A bag of gunpowder");
         },
         seenByPLayer: false,
       },
@@ -610,8 +620,10 @@ let allText = [
             allText[4][0][6 - 1].show = false;
             allText[4][0][7 - 1].show = true;
           }
-
+          allText[5][0][1].show = false;
           allText[5][1][5 - 1].show = false;
+
+          playerInventory.push("The Captain's cutlass");
         },
         seenByPLayer: false,
       },
@@ -757,6 +769,7 @@ let allText = [
           clearChoicesLog();
           clearTextSeen();
           initializeShowStates();
+          clearInventory();
           console.log("game initialized");
         },
         seenByPLayer: false,
@@ -812,6 +825,7 @@ let allText = [
           clearChoicesLog();
           clearTextSeen();
           initializeShowStates();
+          clearInventory();
           console.log("game initialized");
         },
         seenByPLayer: false,
@@ -841,6 +855,7 @@ let allText = [
           clearChoicesLog();
           clearTextSeen();
           initializeShowStates();
+          clearInventory();
           console.log("game initialized");
         },
         seenByPLayer: false,
@@ -870,6 +885,8 @@ let allText = [
           clearChoicesLog();
           clearTextSeen();
           initializeShowStates();
+          clearInventory();
+
           console.log("game initialized");
         },
         seenByPLayer: false,
@@ -878,75 +895,20 @@ let allText = [
   ],
 ];
 
-/*
-//html stuff
-//const body = document.body; //mah body
-const app = document.getElementById("app");
+startGame();
 
-let descriptionParagraphs = [];
-let choiceLabels = [];
-let choiceInputs = [];
-
-const chapterTitle = app.createElement("h1");
-const divChapterText = app.createElement("div");
-divChapterText.setAttribute("id", "chapterText");
-
-const formChoices = app.createElement("form");
-formChoices.setAttribute("action", "/choose-an-action");
-formChoices.setAttribute("id", "choicesText");
-
-//body.append(chapterNames[playerPosition]);
-app.append(chapterTitle);
-app.append(divChapterText);
-
-chapterTitle.innerText = chapterNames[playerPosition];
-
-compileTextToShow(playerPosition);
-createDescriptionParagraphs(textToShow[0].length);
-
-divChapterText.append(formChoices);
-createChoiceInputs(textToShow[1].length);
-*/
-
-//css stuff
-compileTextToShow(playerPosition);
-console.log(textToShow[1]);
-
-let buttonOverColor = "#DDDDDD";
-let buttonOutColor = "#000000";
-let buttonTextOverColor = "#000000";
-let buttonTextOutColor = "#FFFFFF";
-
-showChoices();
-showDescriptions(playerPosition);
-showChapterImage(playerPosition);
-
-//Gameloop
-/*
-while (true) {
-  console.log(`Choices made so far ${choicesLog}`);
-  
-  compileTextToShow(playerPosition);
-  body.append(chapterNames[playerPosition]);
-  createDescriptionParagraphs(textToShow[0].length);
-  //latestPlayerAnswer = prompt(generatePrompt());
-  
-  addPlayerChoiceToLog(latestPlayerAnswer);
-  
-  updateShowStates(latestPlayerAnswer);
-  
-  updateTextSeen();
-  if (
-    (choicesLog.length > 5 && choicesLog.includes("6.1.0") === false) ||
-    (choicesLog.length > 5 && choicesLog.includes("6.1.1") === false)
-    ) {
-      playerPosition = 12;
-      } else {
-        playerPosition = getDestinationFromPlayerAnswer(latestPlayerAnswer);
-    }
-    }
-    */
 function compileTextToShow(chapterNr) {
+  let chapterToCompile = chapterNr;
+
+  if (
+    choicesLog.length > 4 &&
+    choicesLog.includes("6.1.0") === false &&
+    choicesLog.includes("6.1.1") === false
+  ) {
+    playerPosition = 12;
+    chapterToCompile = 12;
+  }
+
   // rydder begge arrays inde i textToShow-arrayet.
   for (let i = 0; i < textToShow.length; i++) {
     let lengthBeforePopping = textToShow[i].length;
@@ -959,53 +921,18 @@ function compileTextToShow(chapterNr) {
   // Evaluerer 'show' for alle kapitlets mulige descriptions.
   // Hvis 'show' er true for den pågældende description, føjes dens tekst til første del af textToShow arrayet.
 
-  for (let i = 0; i < allText[chapterNr][0].length; i++) {
-    if (allText[chapterNr][0][i].show === true) {
-      textToShow[0].push(allText[chapterNr][0][i]);
+  for (let i = 0; i < allText[chapterToCompile][0].length; i++) {
+    if (allText[chapterToCompile][0][i].show === true) {
+      textToShow[0].push(allText[chapterToCompile][0][i]);
     }
   }
 
   // Evaluerer 'show' for alle kapitlets mulige valgmuligheder.
   // Hvis 'show' er true for den pågældende valgmulighed, føjes dens tekst til første del af textToShow arrayet.
-  for (let i = 0; i < allText[chapterNr][1].length; i++) {
-    if (allText[chapterNr][1][i].show === true) {
-      textToShow[1].push(allText[chapterNr][1][i]);
+  for (let i = 0; i < allText[chapterToCompile][1].length; i++) {
+    if (allText[chapterToCompile][1][i].show === true) {
+      textToShow[1].push(allText[chapterToCompile][1][i]);
     }
-  }
-}
-
-function generatePrompt() {
-  var result = "";
-  for (let i = 0; i < textToShow[0].length; i++) {
-    if (textSeenByPlayer.includes(textToShow[0][i].id) === false) {
-      result += "\n" + "NEW " + textToShow[0][i].text;
-    } else {
-      result += "\n" + textToShow[0][i].text;
-    }
-  }
-  for (let i = 0; i < textToShow[1].length; i++) {
-    if (textSeenByPlayer.includes(textToShow[1][i].id) === false) {
-      result +=
-        "\n\n" + "NEW " + textToShow[1][i].text + `(Type in "${i + 1}")`;
-    } else {
-      result += "\n\n" + textToShow[1][i].text + `(Type in "${i + 1}")`;
-    }
-  }
-
-  return result;
-}
-
-function getDestinationFromPlayerAnswer(answer) {
-  return textToShow[1][answer - 1].destination;
-}
-
-function addPlayerChoiceToLog(answer) {
-  choicesLog.push(textToShow[1][answer - 1].id);
-}
-
-function updateShowStates(answer) {
-  if (textToShow[1][answer - 1].effectsOfChoice !== undefined) {
-    textToShow[1][answer - 1].effectsOfChoice();
   }
 }
 
@@ -1026,14 +953,6 @@ function clearChoicesLog() {
   }
 }
 
-function updateTextSeen() {
-  for (let i = 0; i < textToShow.length; i++) {
-    for (let j = 0; j < textToShow[i].length; j++) {
-      textSeenByPlayer.push(textToShow[i][j].id);
-    }
-  }
-}
-
 function clearTextSeen() {
   let lengthBeforePopping = textSeenByPlayer.length;
   for (let i = 0; i < lengthBeforePopping; i++) {
@@ -1041,54 +960,11 @@ function clearTextSeen() {
   }
 }
 
-function createDescriptionParagraphs(numberOfParagraphs) {
-  for (let i = 0; i < numberOfParagraphs; i++) {
-    descriptionParagraphs.push(document.createElement("p"));
-    if (textSeenByPlayer.includes(textToShow[0][i].id) === false) {
-      descriptionParagraphs[i].setAttribute(
-        "class",
-        "chapterText description new"
-      );
-    } else {
-      descriptionParagraphs[i].setAttribute(
-        "class",
-        "chapterText description seen"
-      );
-    }
-    descriptionParagraphs[i].innerText = textToShow[0][i].text;
-    divChapterText.append(descriptionParagraphs[i]);
-  }
-}
-
-/*
-function createChoiceInputs(numberOfChoices) {
-  for (let i = 0; i < numberOfChoices; i++) {
-    choiceLabels.push(document.createElement("label"));
-    choiceLabels[i].innerText = textToShow[1][i].text;
-    choiceLabels[i].setAttribute("class", "chapterText choice");
-
-    choiceInputs.push(document.createElement("input"));
-    choiceInputs[i].setAttribute("i", i);
-    choiceInputs[i].setAttribute("type", "radio");
-    choiceInputs[i].setAttribute("name", "available-choices");
-
-    formChoices.append(choiceLabels[i]);
-    choiceLabels[i].append(choiceInputs[i]);
-
-    formChoices.append(document.createElement("br"));
-  }
-  let button = document.createElement("button");
-  button.setAttribute("type", "submit");
-  button.innerText = "Submit";
-  formChoices.append(button);
-}
-*/
-
 function showDescriptions(chapterNr) {
-  chapterTitle.innerText = chapterNames[playerPosition];
+  chapterTitleEl.innerText = chapterNames[playerPosition];
 
-  while (descriptionsParent.firstChild) {
-    descriptionsParent.firstChild.remove();
+  while (descriptionsParentEl.firstChild) {
+    descriptionsParentEl.firstChild.remove();
   }
 
   textToShow[0].forEach((obj) => {
@@ -1099,14 +975,14 @@ function showDescriptions(chapterNr) {
       newParagraph.setAttribute("class", "description seen");
     }
     newParagraph.innerText = obj.text;
-    descriptionsParent.append(newParagraph);
+    descriptionsParentEl.append(newParagraph);
     textSeenByPlayer.push(obj.id);
   });
 }
 
 function showChoices() {
-  while (choicesParent.firstChild) {
-    choicesParent.firstChild.remove();
+  while (choicesParentEl.firstChild) {
+    choicesParentEl.firstChild.remove();
   }
 
   textToShow[1].forEach((obj) => {
@@ -1139,7 +1015,7 @@ function showChoices() {
     });
 
     //append
-    choicesParent.append(newButton);
+    choicesParentEl.append(newButton);
     newButton.append(newButtonText);
   });
 }
@@ -1158,6 +1034,7 @@ function choiceMade(playerChoice) {
   showDescriptions();
   showChoices();
   showChapterImage(playerPosition);
+  viewInventory();
 }
 
 function showChapterImage(chapterNr) {
@@ -1169,17 +1046,46 @@ function showChapterImage(chapterNr) {
     switch (choicesLog.includes("badLoading")) {
       case false:
         newChapterImage.setAttribute("src", "images/chapter8-0.jpg");
-        chapterImageParent.append(newChapterImage);
+        chapterImageParentEl.append(newChapterImage);
         break;
       case true:
         newChapterImage.setAttribute("src", "images/chapter8-1.jpg");
-        chapterImageParent.append(newChapterImage);
+        chapterImageParentEl.append(newChapterImage);
         break;
       default:
         break;
     }
   } else {
     newChapterImage.setAttribute("src", chapterImagePaths[chapterNr]);
-    chapterImageParent.append(newChapterImage);
+    chapterImageParentEl.append(newChapterImage);
+  }
+}
+
+function startGame() {
+  compileTextToShow(playerPosition);
+  showChoices();
+  showDescriptions(playerPosition);
+  showChapterImage(playerPosition);
+  viewInventory();
+}
+
+function removeItemFromInventory(item) {
+  for (let i = 0; i < playerInventory.length; i++) {
+    if (playerInventory[i] === item) {
+      playerInventory = playerInventory
+        .slice(0, i)
+        .concat(playerInventory.slice(i + 1, playerInventory.length));
+    }
+  }
+}
+
+function viewInventory() {
+  inventoryEl.innerText = playerInventory;
+}
+
+function clearInventory() {
+  let lengthBeforePopping = playerInventory.length;
+  for (let i = 1; i < lengthBeforePopping; i++) {
+    playerInventory.pop();
   }
 }

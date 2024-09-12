@@ -75,6 +75,8 @@
   border-left: 1px;
   border-top: 1px;
   border-bottom: 1px;
+  display: flex;
+  flex-direction: column;
 }
 
 #box22 {
@@ -115,21 +117,29 @@ h1 {
   font-family: "Lucida Blackletter", sans-serif;
 }
 
+h2 {
+  color: white;
+  font-family: "Lucida Blackletter", sans-serif;
+  padding-left: 25px;
+}
+
 p {
   color: white;
   font-family: "Lucida Blackletter", sans-serif;
+
+  padding-left: 25px;
 }
 
 .description.new {
   font-size: 1.5em;
-  padding-left: 50px;
+  padding-left: 25px;
   padding-right: 50px;
   overflow: auto;
 }
 
 .description.seen {
   font-size: 1.5em;
-  padding-left: 50px;
+  padding-left: 25px;
   padding-right: 50px;
   overflow: auto;
   color: #aaaaaa;
