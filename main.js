@@ -308,10 +308,10 @@ let allText = [
         show: true,
         destination: 3,
         effectsOfChoice: function () {
-          allText[4][0][3].show = false;
+          allText[4][0][3 - 1].show = false;
 
-          allText[3][1][6].show = false;
-          allText[4][1][4].show = true;
+          allText[3][1][6 - 1].show = false;
+          allText[4][1][4 - 1].show = true;
         },
         seenByPLayer: false,
       },
@@ -586,7 +586,7 @@ let allText = [
             allText[4][0][7 - 1].show = true;
           }
 
-          allText[5][1][5].show = false;
+          allText[5][1][5 - 1].show = false;
         },
         seenByPLayer: false,
       },
