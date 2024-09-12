@@ -12,6 +12,8 @@ let choicesLog = [];
 const choicesParent = document.getElementById("box22");
 const descriptionsParent = document.getElementById("box2121");
 const chapterTitle = document.getElementById("chapterTitle");
+const chapterImageParent = document.getElementById("box211");
+
 console.log(choicesParent);
 
 //array som indeholder to arrays til den tekst som skal vises til spilleren.
@@ -38,6 +40,24 @@ const chapterNames = [
   "For the captain!", // chapter 11
   "Lunch", // chapter 12
 ];
+
+const chapterImagePaths = [
+  "images/chapter0.jpg",
+  "images/chapter1.jpg",
+  "images/chapter2.jpg",
+  "images/chapter3.jpg",
+  "images/chapter4.jpg",
+  "images/chapter5.jpg",
+  "images/chapter6.png",
+  "images/chapter7.jpg",
+  "images/chapter8-0.jpg",
+  "images/chapter9.jpg",
+  "images/chapter10.jpg",
+  "images/chapter11.jpg",
+  "images/chapter12.jpg",
+];
+
+const borderImagePaths = ["images/left border.png", "images/right border.png"];
 
 let allText = [
   // Alle spillets tekster. Arrayets opbygning er chapters[kapitel nr][0 for beskrivelser, 1 for valg][beskrivelse/valg nr]
@@ -417,31 +437,33 @@ let allText = [
             choicesLog.includes("6.1.1") === true &&
             choicesLog.includes("4.1.4") === false
           ) {
-            allText[8][0][2].show = true;
+            allText[8][0][2 - 1].show = true; //cannon fires
           }
           if (
             choicesLog.includes("6.1.0") == true &&
             choicesLog.includes("4.1.4") === false
           ) {
-            allText[8][0][3].show = true;
+            allText[8][0][3 - 1].show = true; //cannon fires
           }
           if (
             choicesLog.includes("6.1.1") === true &&
             choicesLog.includes("4.1.4") === true
           ) {
-            allText[8][0][4].show = true;
+            allText[8][0][4 - 1].show = true; //cannon explodes
+            choicesLog.push("badLoading");
           }
           if (
             choicesLog.includes("6.1.0") === true &&
             choicesLog.includes("4.1.4") === true
           ) {
-            allText[8][0][5].show = true;
+            allText[8][0][5 - 1].show = true; // cannon explodes
+            choicesLog.push("badLoading");
           }
 
           if (choicesLog.includes("4.1.4") === true) {
-            allText[4][1][6].show = true;
+            allText[4][1][6 - 1].show = true;
           }
-          allText[4][1][4].show = false;
+          allText[4][1][4 - 1].show = false;
         },
         seenByPLayer: false,
       },
@@ -456,31 +478,34 @@ let allText = [
             choicesLog.includes("6.1.1") === true &&
             choicesLog.includes("4.1.3") === false
           ) {
-            allText[8][0][4].show = true;
+            allText[8][0][4 - 1].show = true; // cannon explodes
+            choicesLog.push("badLoading");
           }
           if (
             choicesLog.includes("6.1.0") == true &&
             choicesLog.includes("4.1.3") === false
           ) {
-            allText[8][0][5].show = true;
+            allText[8][0][5 - 1].show = true; // cannon explodes
+            choicesLog.push("badLoading");
           }
           if (
             choicesLog.includes("6.1.1") === true &&
             choicesLog.includes("4.1.3") === true
           ) {
-            allText[8][0][2].show = true;
+            allText[8][0][2 - 1].show = true; //cannon fires
           }
           if (
             choicesLog.includes("6.1.0") === true &&
             choicesLog.includes("4.1.3") === true
           ) {
-            allText[8][0][3].show = true;
+            allText[8][0][3 - 1].show = true;
           }
 
           if (choicesLog.includes("4.1.3") === true) {
-            allText[4][1][6].show = true;
+            allText[4][1][6 - 1].show = true; // cannon fires
           }
-          allText[4][1][5].show = false;
+
+          allText[4][1][5 - 1].show = false;
         },
         seenByPLayer: false,
       },
@@ -887,13 +912,14 @@ createChoiceInputs(textToShow[1].length);
 compileTextToShow(playerPosition);
 console.log(textToShow[1]);
 
-let buttonOverColor = "#FFFF00";
+let buttonOverColor = "#DDDDDD";
 let buttonOutColor = "#000000";
 let buttonTextOverColor = "#000000";
 let buttonTextOutColor = "#FFFFFF";
 
 showChoices();
 showDescriptions(playerPosition);
+showChapterImage(playerPosition);
 
 //Gameloop
 /*
@@ -1121,7 +1147,7 @@ function showChoices() {
 function choiceMade(playerChoice) {
   choicesLog.push(playerChoice.id);
   console.log(playerChoice.id);
-
+  console.log(choicesLog);
   if (playerChoice.effectsOfChoice !== undefined) {
     playerChoice.effectsOfChoice();
   }
@@ -1131,4 +1157,29 @@ function choiceMade(playerChoice) {
   compileTextToShow(playerPosition);
   showDescriptions();
   showChoices();
+  showChapterImage(playerPosition);
+}
+
+function showChapterImage(chapterNr) {
+  const newChapterImage = document.createElement("img");
+  newChapterImage.setAttribute("id", "currentChapterImage");
+  newChapterImage.setAttribute("class", "chapterImage");
+
+  if (chapterNr === 8) {
+    switch (choicesLog.includes("badLoading")) {
+      case false:
+        newChapterImage.setAttribute("src", "images/chapter8-0.jpg");
+        chapterImageParent.append(newChapterImage);
+        break;
+      case true:
+        newChapterImage.setAttribute("src", "images/chapter8-1.jpg");
+        chapterImageParent.append(newChapterImage);
+        break;
+      default:
+        break;
+    }
+  } else {
+    newChapterImage.setAttribute("src", chapterImagePaths[chapterNr]);
+    chapterImageParent.append(newChapterImage);
+  }
 }
