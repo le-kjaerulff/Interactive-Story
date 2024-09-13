@@ -70,7 +70,12 @@ let allText = [
       // chapter 0 descriptions
       {
         id: "0.0.0",
-        text: "Introduction part 1 text here",
+        text: `Your name is Carlos Polcheque, and right now you are living the best life a pirate can dream of. You serve as first mate under the revered Captain Charles Von Crutch, on the dreaded pirate vessel The Slaying Brat, and have just returned to port with the cargo filled to the brim with plundered riches and treasures. The crew’s spirits are high, and you are surrounded by friends, gold and gallons upon gallons of the finest rum that can be stolen. Even the old captain, who has seen better days, is celebrating with the crew. At sea, he spends his time either secluded in his cabin or firmly planted on the main deck, leaning on his crutch made from whale bones while shouting out orders to the crew. The captain approaches you with a seldom seen smile on his face, a jug of rum in one hand, the crutch in the other. 
+        
+        “Arrr, Polcheque! In all me days sailin' the seven seas as a captain, I’ve ne’er had a finer first mate than ye. Ye be a pirate of the blackest, filthiest, and mightiest blood. From the Isle o' Tortuga t' Port Royale t' the shores o' Barbados, I’ve ne’er met nor heard tell o' such splendid..."
+
+While the captain continues to deliver a heartfelt praise of your work (usually, any such recognition from the mouth of the stern captain would be the stuff of dreams) you notice a faint taste of blood in your mouth. The merry singing and drunken shouting of your crewmates suddenly sound like distant howls and blurry wailing of some unimaginable terror. A stabbing soreness and the weight of your own body hits you like a ton of bricks. For a moment, you are completely disoriented. 
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -98,7 +103,13 @@ let allText = [
       //chapter 1 descriptions
       {
         id: "1.0.1",
-        text: "Introduction part 2 text here",
+        text: `You feel wet planks against the side of your face, unmistakably the deck of The Slaying Brat, which you’ve scrubbed countless times back when you served as an ordinary seaman. You open your eyes and see the bodies of your crewmates and fallen debris scattered across the deck, some of which must have knocked you out. A foul stench of rot and distant, monstrous howls reminds you your terrible predicament: An enormous creature from the darkest depths of the ocean is attacking the ship!
+ 
+You get up on your feet.
+From the main deck above, you hear the yells of Captain Von Crutch:
+ 
+"Sea beast dead ahead! Grab the wheel and steer 'er starboard, ye scallywags!"
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -150,37 +161,43 @@ let allText = [
       //chapter 2 descriptions
       {
         id: "2.0.0",
-        text: "Old Captain Charles Von Crutch stands on the main deck, leaning on his whalebone crutch ",
+        text: "Captain Charles Von Crutch stands in his usual spot for shouting out orders, leaning on his crutch. ",
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "2.0.1",
-        text: `A hideous monster towers up from the sea in front of the ship's bow.
-        The captain yells towards you: "Polcheque! We've lost th' starboard cannons! 
-        Get yer scurvy hide movin' and bring those port-side cannons t' bear!`,
+        text: `Ahead of the ships bow, you see rows upon rows of sharp teeth and tentacles emerging up from the ocean. The captain sees you and immediately yells out:
+
+"Polcheque! We've lost th' starboard cannons! Get yer scurvy hide movin' and bring those port-side cannons t' bear!
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "2.0.2",
-        text: "The captain orders you below deck to load up the cannons",
+        text: `Capt. Von Crutch howls at you: 
+        “What ye standing around for, Polcheque?! Load up them cannons!!"`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "2.0.3",
-        text: "The captain reprimands you for not knowing the difference between starboard and port",
+        text: `Cpt. Von Crutch almost falls over while he shouts in your face: 
+
+        ”Polcheque ye artless sea cucumber you! Since when can’t ye tell the difference between starboard and port?! I hope ye gots another plan of attack ready…”`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "2.0.4",
-        text: "The captain gives you a nervous look",
+        text: `You recall what you read in the logbook, and for a short moment, you catch a nervous look in the captains’ eyes before he exclaims: 
+        
+        ”Ayyy, what ye givin me that weird eye for, Polcheque?”`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
@@ -241,21 +258,21 @@ let allText = [
       //chapter 3 descriptions
       {
         id: "3.0.0",
-        text: "The first thing you see in the cargo hold is the rum stash. You consider having a sip, just to lighten your spirits",
+        text: `On the cargo deck, your gaze immediately falls upon several stacks of barrels with rum. While reminiscing about the joyful dream you had before waking up to this nightmarish reality, you consider having a sip of the rum, just to take the edge off. `,
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "3.0.1",
-        text: `The alcohol makes you feel fearless, as if you could overcome anything. There is still plenty of rum in the stash`,
+        text: `You’ve enjoyed a generous sip of the rum in the cargo hold, and the alcohol creates a nice warm feeling in your body. You hear the strange howls of the sea monster from outside the ship, but it no longer fills you with the same fear as it did before. `,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "3.0.2",
-        text: "In a corner of the cargo deck you spot a bag of gunpowder, which must have ended up here by mistake",
+        text: `In a corner of the cargo deck you notice a bag of gunpowder, which must have ended up here by mistake. `,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -310,6 +327,7 @@ let allText = [
             allText[4][0][5 - 1].show = false;
             allText[4][0][6 - 1].show = false;
             allText[4][0][7 - 1].show = true;
+            allText[4][1][7 - 1].show = true;
           }
 
           allText[3][1][4 - 1].show = false;
@@ -351,55 +369,71 @@ let allText = [
       //chapter 4 descriptions
       {
         id: "4.0.0",
-        text: "On the gun deck, the entire starboard side of the ship's hull has been ripped open by something huge, and all the cannons on this side must have fallen into the sea. On the port side, all cannos still appear to be intact.",
+        text: "On the gun deck, the entire starboard side of the ship’s hull has been ripped open by the beast’s tentacles, and the cannons on this side have fallen overboard. On the port side, the cannons still appear to be intact.",
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "4.0.1",
-        text: `The ammo depot must have fallen overboard as well, exept for one single cannon ball`,
+        text: `The ammo depot must have been lost to the sea as well, except for one last cannon ball.`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "4.0.2",
-        text: "You look around for a bag of gun powder, but find nothing of the sort",
+        text: "You don’t see any bags of gunpowder anywhere on the half-destroyed gun deck. ",
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "4.0.3",
-        text: "Thanks to you, the cannons on the port-side are in perfect position for an attack against the monster",
+        text: "Thanks to your helmsmanship at the wheel, the remaining cannons on the port side are lined up for a perfect attack against the abomination that lurks outside the ship.",
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "4.0.4",
-        text: `Through the hole in the starboard-side hull, the monster gazes in at you with one of its gigantic eyeballs.
-        For a moment you feel paralyzed with fear`,
+        text: `Through the open wound in the starboard side of the hull, the monster stares in at you with one of its enormous, dead eyes. For a moment, the sight leaves you paralyzed with fear.`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "4.0.5",
-        text: `Through the hole in the starboard-side hull, the monster gazes in at you with one of its gigantic eyeballs.
-        The buzz from the rum has you convinced that the sea monster is the one who should be afraid of you!
-        If only you had a weapon to attack with...`,
+        text: `The stupid monster gawks at you with its blank eye through the hole in the hull. 
+You boldly return the gaze while swaying your arms drunkenly, just barely avoiding tripping over your own feet. The buzz from the rum has you convinced that the monster is the one who should be afraid of you. 
+
+Arrr! "What ye starin' at, ye bloated squid? I'll swab the deck with ye remains!!" you shout in a slurry stream of words. 
+
+If only you had a weapon on you…
+`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "4.0.6",
-        text: `Through the hole in the starboard-side hull, the monster gazes in at you with one of its gigantic eyeballs.
-        The buzz from the rum has you convinced that the sea monster is the one who should be afraid of you!
-        You drunkenly reckon that you could easily jump from the cannon deck, through the big hole in the ship 
-        onto the wretched beast, and slay it with the captain's cutlass. `,
+        text: `The stupid monster gawks at you with its blank eye through the hole in the hull. 
+Through your rum-infused mind’s eye, you reckon that you could easily jump from the cannon deck, through the big hole in the ship’s hull, onto the stinking abomination, and send it to hell with the captain’s cutlass. 
+`,
+        initShowState: false,
+        show: false,
+        seenByPLayer: false,
+      },
+      {
+        id: "4.0.7",
+        text: `You've loaded up the nearest cannons with gunpowder`,
+        initShowState: false,
+        show: false,
+        seenByPLayer: false,
+      },
+      {
+        id: "4.0.8",
+        text: `You've loaded up the nearest cannon with a cannonball`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
@@ -452,6 +486,11 @@ let allText = [
             choicesLog.includes("4.1.4") === false
           ) {
             allText[8][0][3 - 1].show = true; //cannon fires
+            allText[8][1][0].show = false;
+            allText[8][1][1].show = true;
+            allText[8][1][2].show = true;
+            allText[8][1][3].show = true;
+            allText[8][1][4].show = true;
           }
           if (
             choicesLog.includes("6.1.1") === true &&
@@ -472,6 +511,7 @@ let allText = [
             allText[4][1][6 - 1].show = true;
           }
           allText[4][1][4 - 1].show = false;
+          allText[4][0][7].show = true;
 
           removeItemFromInventory("A bag of gunpowder");
         },
@@ -509,6 +549,11 @@ let allText = [
             choicesLog.includes("4.1.3") === true
           ) {
             allText[8][0][3 - 1].show = true;
+            allText[8][1][0].show = false;
+            allText[8][1][1].show = true;
+            allText[8][1][2].show = true;
+            allText[8][1][3].show = true;
+            allText[8][1][4].show = true;
           }
 
           if (choicesLog.includes("4.1.3") === true) {
@@ -516,6 +561,7 @@ let allText = [
           }
 
           allText[4][1][5 - 1].show = false;
+          allText[4][0][8].show = true;
         },
         seenByPLayer: false,
       },
@@ -525,7 +571,11 @@ let allText = [
         initShowState: false,
         show: false,
         destination: 8,
-        effectsOfChoice: undefined,
+        effectsOfChoice: function () {
+          allText[4][1][5].show = false;
+          allText[4][0][7].show = false;
+          allText[4][0][8].show = false;
+        },
         seenByPLayer: false,
       },
       {
@@ -545,15 +595,14 @@ let allText = [
       //chapter 5 descriptions
       {
         id: "5.0.0",
-        text: `You're in the captain's cabin. Some of the furniture has been flipped over during the battle with the monster
-        A the foot of a table in the corner, you spot the captain's logbook, which has fallen from the table and lies open on the floor`,
+        text: `You enter the captain’s cabin, wherein you’re only allowed on very special occasions. On the floor lies the captain’s big logbook open on a page with ink writing. The book must have slid off of the desk during the battle with the monster. `,
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "5.0.1",
-        text: `On the wall hangs the captain's mighty cutlass, which has slain many foul beasts on the seven seas`,
+        text: `On the wall hangs the captain’s legendary cutlass, a sword that has slain many foul beasts on the seven seas`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -595,9 +644,9 @@ let allText = [
         show: true,
         destination: 9,
         effectsOfChoice: function () {
-          allText[2][0][4 - 1].show = true;
+          allText[2][0][4].show = true;
 
-          allText[2][1][4 - 1].show = true;
+          allText[2][1][4].show = true;
         },
         seenByPLayer: false,
       },
@@ -618,7 +667,17 @@ let allText = [
           ) {
             allText[4][0][5 - 1].show = false;
             allText[4][0][6 - 1].show = false;
+            allText[4][0][6 - 1].show = true;
+          }
+          if (
+            choicesLog.includes("6.1.0") === true &&
+            choicesLog.includes("5.1.4") === true &&
+            choicesLog.includes("3.1.3") === true
+          ) {
+            allText[4][0][5 - 1].show = false;
+            allText[4][0][6 - 1].show = false;
             allText[4][0][7 - 1].show = true;
+            allText[4][1][7 - 1].show = true;
           }
           allText[5][0][1].show = false;
           allText[5][1][5 - 1].show = false;
@@ -635,8 +694,7 @@ let allText = [
       //chapter 6 descriptions
       {
         id: "6.1.0",
-        text: `You stand behind the wheel on the ships helm. Ahead from the ships the bow, the monster is ready to swallow the ship whole.
-        You must change the course immediately!`,
+        text: `You stand before the wheel on the ship’s helm. Straight ahead from the ship, the monster has opened its cavernous mouth, ready to swallow the ship whole. You must change the ship’s heading immediately!`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -646,7 +704,7 @@ let allText = [
       //chapter 6 choices
       {
         id: "6.1.0",
-        text: "Turn the wheel to the left",
+        text: "Turn the ship's wheel to the left",
         initShowState: true,
         show: true,
         destination: 2,
@@ -673,7 +731,7 @@ let allText = [
       },
       {
         id: "6.1.1",
-        text: "Turn the wheel to the right",
+        text: "Turn the ship's wheel to the right",
         initShowState: true,
         show: true,
         destination: 2,
@@ -693,7 +751,16 @@ let allText = [
       //chapter 7 descriptions
       {
         id: "7.0.0",
-        text: `You throw the captain overboard and the monster immidiately dives after him, pulling him into the dark abyss. You survive.`,
+        text: `You suddenly leap forward and grab the captain.
+
+“Mutany! MUUTAANYYY!” he yells, as you drag the coward towards the railing, and toss him overboard. 
+
+Just as the captain hits the dark surface of the ocean, the monster makes a huge leap and lands where the captain’s hand is still above the water, dragging him down into the deepest depths of the abyss. 
+
+You stand for a moment, gazing into the waving void. You’d never have thought that you would turn on your own captain like that. Then again, the old fuckboy only got what was coming to him, and in the end, he was a toxic captain. 
+
+You promote yourself to captain of The Slaying Brat and set the course towards the nearest pirate port to find yourself a new crew. 
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -723,35 +790,65 @@ let allText = [
       //chapter 8 descriptions
       {
         id: "8.0.0",
-        text: `You light the fuse on the cannon`,
+        text: `You light the cannon’s fuse and cover your ears while the sparkling flame dances along towards the ignition hole in the back of the cannon. `,
         initShowState: true,
         show: true,
         seenByPLayer: false,
       },
       {
         id: "8.0.1",
-        text: `You kill the monster with the cannon`,
+        text: `Through the port hole, you can just glimpse the wretched monster behind the cannon. The shot is perfectly aligned. 
+
+BANG!!!
+
+The monster lets out a haunting, wailing sound in pain, and retreats into the depths. 
+Your heart is still racing but your nerves begin to settle, while you realize that you just fended off a leviathan single handedly. Although, you are unsure whether the beast might someday return, once its wounds have healed. 
+
+You triumphantly tread up the stair to the main deck, where the captain stands at the railing, looking anxiously into the horizon. 
+
+You stand for a moment by his side, until he turns to you and says:
+
+“Well Polcheque, if you’ve got time to lean you’ve got time to clean”. 
+
+He hands you the mop and order you to swab the decks. 
+
+It’s a thankless job, but you’re lucky to still be alive. 
+`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "8.0.2",
-        text: `You fire a cannonball directly into the sea`,
+        text: `BANG! 
+
+You watch the ship’s last cannon ball hurl through the air and splash graciously into the ocean.
+For a moment you ponder what you were trying to achieve - the monster is behind you on the other side of the ship, still staring at you through the hole. 
+`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "8.0.3",
-        text: `You're about to kill the monster with the cannon but the cannon explodes and kills you`,
+        text: `Through the port hole, you can just glimpse the wretched monster behind the cannon. The shot is perfectly aligned. While the fuse is nearing the ignition point, a terrible thought strikes you like lightening: Did you load up the cannon in the correct order?!
+
+BANG!!!
+
+The cannon explodes, hurling fire and giant splinters of iron in all directions. The blast instantly kills you and the captain is eventually eaten by the sea monster. 
+`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
       },
       {
         id: "8.0.4",
-        text: `You're about to shoot the ship's last cannon ball into the sea, but the cannon explodes and kills you`,
+        text: `While the fuse is nearing the ignition point you realize that the monster is on the other side of the ship, and you are about to shoot straight into the sea, but then a more terrible thought strikes you like lightening: Did you load up the cannon in the correct order?!
+
+BANG!!!
+
+The cannon explodes, hurling fire and giant splinters of iron in all directions. The blast instantly kills you and the captain is eventually eaten by the sea monster. 
+`,
         initShowState: false,
         show: false,
         seenByPLayer: false,
@@ -774,6 +871,42 @@ let allText = [
         },
         seenByPLayer: false,
       },
+      {
+        id: "MainDeck",
+        text: "Go to main deck",
+        initShowState: false,
+        show: false,
+        destination: 2,
+        effectsOfChoice: undefined,
+        seenByPLayer: false,
+      },
+      {
+        id: "CargoDeck",
+        text: "Go to cargo deck ",
+        initShowState: false,
+        show: false,
+        destination: 3,
+        effectsOfChoice: undefined,
+        seenByPLayer: false,
+      },
+      {
+        id: "GunDeck",
+        text: "Go to gun deck",
+        initShowState: false,
+        show: false,
+        destination: 4,
+        effectsOfChoice: undefined,
+        seenByPLayer: false,
+      },
+      {
+        id: "CaptCab",
+        text: "Go to captain's cabin",
+        initShowState: false,
+        show: false,
+        destination: 5,
+        effectsOfChoice: undefined,
+        seenByPLayer: false,
+      },
     ],
   ],
   [
@@ -782,7 +915,10 @@ let allText = [
       //chapter 9 descriptions
       {
         id: "9.0.0",
-        text: `You read the captain's logbook and learn of his secret`,
+        text: `You pick up the big, dusty logbook and begin reading the captains ink-blotted letters from the page that was open.
+
+“Dear logbook. Lately, I been havin’ an itchy feelin’ that somethin’ from beneath the waves be huntin’ me. The sea be lookin’ mightily hungry, like it’s ready to swallow me whole. It’s gotta be the curse that scallywag shaman put on me, after I ghosted em’ last summer. Luckily, I’ve got meself a trusty crew o' expendable pirates to serve as me human shield when the curse comes callin’. Tis’ be the end of entry.”
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -807,7 +943,9 @@ let allText = [
       //chapter 10 descriptions
       {
         id: "10.0.0",
-        text: `You suddenly feel very dizzy and collapse on the floor. Eventually the seabeast eats the ship, painfully digesting you and the captain over several weeks`,
+        text: `You start feeling very dizzy from all the rum, and collapse onto the barrels in the cargo deck. 
+The captain keeps yelling out orders in vain, until eventually the sea monster destroys the ship, killing both you and the captain. At least that rum didn’t go to waste. 
+`,
         initShowState: true,
         show: true,
         seenByPLayer: false,
@@ -838,7 +976,15 @@ let allText = [
       //chapter 11 descriptions
       {
         id: "11.0.0",
-        text: `You fearlessly attack the beast with the cutlass and kill both the beast and yourself in the process`,
+        text: `You grasp the cutlass tightly, as run towards the hole in the wall of the cannon deck.
+In the air, above the roaring waves, you yell out 
+
+“For the captaaain!!!” 
+
+as you lunge forward with the cutlass into the eye of your gigantic opponent. You cut into the eyeball like a knife through pudding and slash your way into the creature’s central nervous system. The beast perishes, and sinks into the depths, dragging you down with it. 
+
+You drown while lodged inside the brain of a hideous monster, having sacrificed yourself for the captain. 
+`,
         initShowState: true,
         show: true,
       },
@@ -868,7 +1014,7 @@ let allText = [
       //chapter 12 descriptions
       {
         id: "12.0.0",
-        text: `The ship sails directly into the cavernous mouth of the wretched seamonster. You spend the next following weeks being slowly digested together with the captain, who foul-mouthetly schools you in how the ill fate that you share could have been avoided, right until his mouth and vocalcoords have been etched away by stomach acid `,
+        text: `The ship sails directly into the cavernous mouth of the wretched seamonster. You spend the next following weeks being slowly digested together with the captain, who foul-mouthetly schools you in how the ill fate that you share could have been avoided by changing the ship's course, right until his mouth and vocalcoords have been etched away by stomach acid.`,
         initShowState: true,
         show: true,
       },
