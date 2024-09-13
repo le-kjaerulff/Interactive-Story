@@ -3,6 +3,7 @@ import "./style.css";
 //Spilerens nuværende position. Tallet svarer til kapitlets nummer.
 let playerPosition = 0;
 
+//Items som spillere samler op gemmes i dette array
 let playerInventory = [];
 
 //Gemmer de valg som spilleren har truffet som en liste.
@@ -15,6 +16,7 @@ const chapterTitleEl = document.getElementById("chapterTitle");
 const chapterImageParentEl = document.getElementById("box211");
 const inventoryEl = document.getElementById("inventory");
 
+//Farver til styling af knapper
 const buttonOverColor = "#DDDDDD";
 const buttonOutColor = "#000000";
 const buttonTextOverColor = "#000000";
@@ -29,6 +31,7 @@ let textToShow = [[], []];
 //Array som holder styr på hvilke tekster spilleren har set, ved at gemme teksternes id-tags
 let textSeenByPlayer = [];
 
+// Overskrifter til kapitlerne
 const chapterNames = [
   "Life is good", // chapter 0
   "Waking up in a nightmare", // chapter 1
@@ -45,6 +48,7 @@ const chapterNames = [
   "Lunch", // chapter 12
 ];
 
+//paths til kapitelbilleder
 const chapterImagePaths = [
   "images/chapter0.jpg",
   "images/chapter1.jpg",
@@ -60,10 +64,13 @@ const chapterImagePaths = [
   "images/chapter11.jpg",
   "images/chapter12.jpg",
 ];
+
+//paths billeder i spillets ramme
 const borderImagePaths = ["images/left border.png", "images/right border.png"];
 
+// Alle spillets tekster. Arrayets opbygning er chapters[kapitel nr][0 for beskrivelser, 1 for valg][beskrivelse/valg nr]
+// alle kapitelbeskrivelser og valg er individuelle objekter.
 let allText = [
-  // Alle spillets tekster. Arrayets opbygning er chapters[kapitel nr][0 for beskrivelser, 1 for valg][beskrivelse/valg nr]
   [
     //chapter 0
     [
@@ -1041,11 +1048,15 @@ You drown while lodged inside the brain of a hideous monster, having sacrificed 
   ],
 ];
 
+//Starter spillet
 startGame();
 
+//Denne funktion tjekker hvilke tekster der skal hives ud af allText arrayet og ind i textToShow arrayet.
+//Ud fra
 function compileTextToShow(chapterNr) {
   let chapterToCompile = chapterNr;
 
+  //tjekker om spilleren har ændret skibets kurs inden for 4 actions. Hvis ikke, sendes spilleren til slutningen på kapitel 12.
   if (
     choicesLog.length > 4 &&
     choicesLog.includes("6.1.0") === false &&
@@ -1082,6 +1093,7 @@ function compileTextToShow(chapterNr) {
   }
 }
 
+// ændrer alle beskrivelser og svarmuligheders show-værdi til dens initial value.
 function initializeShowStates() {
   for (let i = 0; i < allText.length; i++) {
     for (let j = 0; j < allText[i].length; j++) {
@@ -1092,6 +1104,7 @@ function initializeShowStates() {
   }
 }
 
+// ryddet arrayet som holder styr på spillerens truffede valg
 function clearChoicesLog() {
   let lengthBeforePopping = choicesLog.length;
   for (let i = 0; i < lengthBeforePopping; i++) {
@@ -1099,6 +1112,7 @@ function clearChoicesLog() {
   }
 }
 
+// Rydder arrayet som holder styr på hvilke tekster spilleren har set
 function clearTextSeen() {
   let lengthBeforePopping = textSeenByPlayer.length;
   for (let i = 0; i < lengthBeforePopping; i++) {
@@ -1107,12 +1121,14 @@ function clearTextSeen() {
 }
 
 function showDescriptions(chapterNr) {
-  chapterTitleEl.innerText = chapterNames[playerPosition];
+  chapterTitleEl.innerText = chapterNames[playerPosition]; // sætter kapitlets overskrift
 
+  // to linjer ekstrem morbid kode som basically siger "har du børn? hvis ja, så dræber jeg det første jeg møder." Dette rydder de forrige tekster så nye kan indsættes.
   while (descriptionsParentEl.firstChild) {
     descriptionsParentEl.firstChild.remove();
   }
 
+  // laver paragraphs for hver description i textToShow. Afhængig af værdien af textSeenByPlayer classificeres objekterne forskelligt, så de kan farves forskelligt med css.
   textToShow[0].forEach((obj) => {
     const newParagraph = document.createElement("p");
     if (textSeenByPlayer.includes(obj.id) === false) {
@@ -1122,17 +1138,18 @@ function showDescriptions(chapterNr) {
     }
     newParagraph.innerText = obj.text;
     descriptionsParentEl.append(newParagraph);
-    textSeenByPlayer.push(obj.id);
+    textSeenByPlayer.push(obj.id); // tilføjer tekstobjektets id-nummer til arrayet.
   });
 }
 
 function showChoices() {
+  // to linjer ekstrem morbid kode som basically siger "har du børn? hvis ja, så dræber jeg det første jeg møder." Dette rydder de forrige tekster så nye kan indsættes.
   while (choicesParentEl.firstChild) {
     choicesParentEl.firstChild.remove();
   }
 
   textToShow[1].forEach((obj) => {
-    //knapper
+    //knapper oprettes
     const newButton = document.createElement("div");
     newButton.setAttribute("class", "box button");
     newButton.style.width = Math.floor(100 / textToShow[1].length) + "%";
@@ -1140,7 +1157,7 @@ function showChoices() {
     newButton.style.alignItems = "center";
     newButton.style.justifyContent = "center";
 
-    //knapper text
+    //knapper får text
     const newButtonText = document.createElement("p");
     newButtonText.setAttribute("class", "buttonText");
     newButtonText.innerText = obj.text;
@@ -1166,16 +1183,18 @@ function showChoices() {
   });
 }
 
+//køres når spilleren træffer et valg
 function choiceMade(playerChoice) {
-  choicesLog.push(playerChoice.id);
+  choicesLog.push(playerChoice.id); //valget tilføjes til loggen
   console.log(playerChoice.id);
   console.log(choicesLog);
   if (playerChoice.effectsOfChoice !== undefined) {
-    playerChoice.effectsOfChoice();
+    playerChoice.effectsOfChoice(); // hvis valg-objektet har en defineret funktion med navnet effectsOfChoice, køres den.
   }
 
-  playerPosition = playerChoice.destination;
+  playerPosition = playerChoice.destination; // spillerens position opdateres på baggrund af valget.
 
+  // spillet gøres klar til at vise næste kapitel.
   compileTextToShow(playerPosition);
   showDescriptions();
   showChoices();
@@ -1188,6 +1207,7 @@ function showChapterImage(chapterNr) {
   newChapterImage.setAttribute("id", "currentChapterImage");
   newChapterImage.setAttribute("class", "chapterImage");
 
+  // det her if-statement er lidt noget snørklet lort. Burde nok have lavet et ekstra kapitel, i stedet for at have et kapitel hvor der kan vises to forskellige billeder afhængigt af spilleren valg.
   if (chapterNr === 8) {
     switch (choicesLog.includes("badLoading")) {
       case false:
@@ -1215,20 +1235,23 @@ function startGame() {
   viewInventory();
 }
 
+// Fjerner et objekt fra spillerens inventory med string-væriden "item"
 function removeItemFromInventory(item) {
   for (let i = 0; i < playerInventory.length; i++) {
     if (playerInventory[i] === item) {
       playerInventory = playerInventory
         .slice(0, i)
-        .concat(playerInventory.slice(i + 1, playerInventory.length));
+        .concat(playerInventory.slice(i + 1, playerInventory.length)); // arrayet splittes op inden og efter værdien af i, og splejses sammen til et nyt array.
     }
   }
 }
 
+// viser sgu bare spillerens inventory
 function viewInventory() {
   inventoryEl.innerText = playerInventory;
 }
 
+// rydder spillerens inventory
 function clearInventory() {
   let lengthBeforePopping = playerInventory.length;
   for (let i = 1; i < lengthBeforePopping; i++) {
