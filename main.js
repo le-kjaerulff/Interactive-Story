@@ -50,23 +50,26 @@ const chapterNames = [
 
 //paths til kapitelbilleder
 const chapterImagePaths = [
-  "images/chapter0.jpg",
-  "images/chapter1.jpg",
-  "images/chapter2.jpg",
-  "images/chapter3.jpg",
-  "images/chapter4.jpg",
-  "images/chapter5.jpg",
-  "images/chapter6.png",
-  "images/chapter7.jpg",
-  "images/chapter8-0.jpg",
-  "images/chapter9.jpg",
-  "images/chapter10.jpg",
-  "images/chapter11.jpg",
-  "images/chapter12.jpg",
+  "./images/chapter0.jpg",
+  "./images/chapter1.jpg",
+  "./images/chapter2.jpg",
+  "./images/chapter3.jpg",
+  "./images/chapter4.jpg",
+  "./images/chapter5.jpg",
+  "./images/chapter6.png",
+  "./images/chapter7.jpg",
+  "./images/chapter8-0.jpg",
+  "./images/chapter9.jpg",
+  "./images/chapter10.jpg",
+  "./images/chapter11.jpg",
+  "./images/chapter12.jpg",
 ];
 
 //paths billeder i spillets ramme
-const borderImagePaths = ["images/left border.png", "images/right border.png"];
+const borderImagePaths = [
+  "./images/left border.png",
+  "./images/right border.png",
+];
 
 // Alle spillets tekster. Arrayets opbygning er chapters[kapitel nr][0 for beskrivelser, 1 for valg][beskrivelse/valg nr]
 // alle kapitelbeskrivelser og valg er individuelle objekter.
