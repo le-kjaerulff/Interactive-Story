@@ -1257,7 +1257,7 @@ function viewInventory() {
 // rydder spillerens inventory
 function clearInventory() {
   let lengthBeforePopping = playerInventory.length;
-  for (let i = 1; i < lengthBeforePopping; i++) {
+  for (let i = 0; i < lengthBeforePopping; i++) {
     playerInventory.pop();
   }
 }
